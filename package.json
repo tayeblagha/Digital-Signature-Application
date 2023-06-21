@@ -1,0 +1,40 @@
+{
+  "name": "digital-signature",
+  "version": "1.0.0",
+  "description": "Digital signature Web Application",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js",
+    "watch:scss": "node-sass -w assets/css/error.scss assets/css/testing.css"
+  },
+  "author": "Tayeb Lagha",
+  "license": "ISC",
+  "dependencies": {
+    "alert": "^5.1.1",
+    "axios": "^0.27.2",
+    "base64topdf": "^1.1.8",
+    "bcrypt": "^5.0.1",
+    "body-parser": "^1.20.0",
+    "cookie-parser": "^1.4.6",
+    "crypto": "^1.0.1",
+    "cryptr": "^6.0.3",
+    "dotenv": "^16.0.1",
+    "ejs": "^3.1.8",
+    "express": "^4.18.1",
+    "express-session": "^1.17.3",
+    "jimp": "^0.16.1",
+    "jquery": "^3.6.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.5.1",
+    "morgan": "^1.10.0",
+    "multer": "^1.4.5-lts.1",
+    "node-popup": "^0.1.14",
+    "node-sass": "^7.0.1",
+    "nodemailer": "^6.7.7",
+    "nodemon": "^2.0.19",
+    "pdf-lib": "^1.17.1",
+    "pdf-parse": "^1.1.1",
+    "popups": "^1.1.3"
+  }
+}

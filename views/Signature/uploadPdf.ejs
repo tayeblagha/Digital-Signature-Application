@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="styleSheet" href="/css/uploadStyle.css">
+  </rel>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"
+    integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+</head>
+
+
+<body>
+  <script>
+    var sign = "hello";
+    function upload(fakepath) {
+      var split = fakepath.split('fakepath\\');
+      var p = document.getElementById("addedParagraph");
+      p.innerHTML = `<u> ${split[1]} </u>` + ' <i class="fas fa-check"></i>  ';
+      document.getElementById("nameofid").value = `${split[1]}`;
+      console.log(split);
+    }
+
+
+  </script>
+  <h4 style="color:rgb(0, 255, 26) ; position: absolute;left:62%;top:82%">
+    <a href='/auth/dashboard?valid=<%= email %>' style=" position: absolute;top:0%;left:0%"> <i
+        style="font-size: 1.8em;" class="fa fa-home" aria-hidden="true"></i> </a>
+  </h4>
+
+  <h4 style="color:white ; position: absolute;left:29%"> <i class="fa-solid fa-circle-info"></i> Please make sure that
+    your private key is in (.txt) format and to not share it to others.
+  </h4>
+
+  <form action="/digitalSignature/emailVerif" method="POST" id="sign-form"
+    style="position: absolute; bottom:40% ;left:37%; " enctype="multipart/form-data">
+
+    <input type="hidden" id="email" name="email" value="<%= email %>">
+
+
+
+    <h2> Enter Pdf You want to Upload <i class="fas fa-file-pdf"></i>
+    </h2>
+    <div class="wrapper">
+      <div class="file-upload">
+        <input type="file" id="uploadFile" name="uploadFile" accept="application/pdf" onchange="upload(this.value)"
+          required />
+        <i class="fa fa-arrow-up"></i>
+      </div>
+    </div>
+    </br> </br> </br>
+    <input type="hidden" id="nameofid" name="pdf" value="">
+
+    <a style="cursor:pointer;" class='upload' id="upload">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      Sign PDF <img src="/img/sig.png" height="25" width="25">
+    </a>
+    </br>
+  </form>
+  <h5 style="color:rgb(244, 247, 87) ; position: absolute;left:39.5% ; top:90%;"> <i class="fa fa-exclamation-triangle"
+      aria-hidden="true"></i>
+    If the keys are wrong signature won't be accepted </h5>
+
+  <p id="addedParagraph" style="color:rgb(244, 247, 87) ; position: absolute;left:49% ; bottom:2%;"> </p>
+
+
+
+
+  <div class="bg-modal">
+    <div class="modal-content">
+      <div class="close" id="close"><button onclick="closePopup()">+ </button></div>
+      <img src="/img/Private_Key.jpg" height="80px" width="80px" alt="">
+      <form action="">
+        <input type="file" name="file" id="file">
+      </form>
+      <h2> Please enter you private Key</h2>
+    </div>
+  </div>
+
+</body>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+  integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script>
+  var selDiv = "";
+  var storedFiles = [];
+  $(document).ready(function () {
+    $("#file").on("change", handleFileSelect);
+    selDiv = $("#selectedBanner");
+  });
+
+  function handleFileSelect(e) {
+    var files = e.target.files;
+    var filesArr = Array.prototype.slice.call(files);
+    filesArr.forEach(function (f) {
+
+      storedFiles.push(f);
+
+      var reader = new FileReader();
+      reader.onload = function (e) {
+        const x = e.target.result;
+        const y = x.slice(23);
+        const privateKey = atob(y);
+        if (privateKey === '<%= game %>') {
+          alert('Congratulation you are ready to sign pdf'); document.getElementById('sign-form').submit();
+        } else { alert('Wrong private Key ! '); closePopup(); }
+
+      };
+      reader.readAsDataURL(f);
+    });
+  }
+
+  document.getElementById('upload').addEventListener('click', function () {
+    document.querySelector('.bg-modal').style.display = 'flex';
+  });
+
+
+  function closePopup() {
+    document.querySelector('.bg-modal').style.display = 'none';
+
+  }
+
+
+  function JSalertSucess() {
+    swal("Good job!", "You are ready to sign pdf!", "sucess");
+
+  }
+  function JSalertError() {
+    swal("Something get wrong!", " incorrect private key!", "error");
+
+  }
+
+</script>
+
+</html>

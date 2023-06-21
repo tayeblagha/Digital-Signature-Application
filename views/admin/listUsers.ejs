@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRUD Application</title>
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+        integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+        crossorigin="anonymous" />
+    <link rel="stylesheet" href="/css/LisrUserstyle.css">
+</head>
+
+<body>
+    <!-- Header -->
+    <header id="header">
+
+
+        <div class="navbar">
+
+            <div class="dropdown">
+                <button class="dropbtn">User Management <i class="fa fa-cog" aria-hidden="true"></i>
+
+                    <i class="fa fa-caret-down"></i>
+                </button>
+                <div class="dropdown-content">
+                    <a href="/admin/historic?email=<%= user.email%>&token=<%= user._id%>"  target="_blank">Signature Historic  <i class="fa fa-history" aria-hidden="true"></i>      </a>
+
+                    <a href="/auth/logout" id="logout">Logout <i class="fas fa-sign-out-alt"></i> </a>
+                </div>
+            </div>
+            <h2 style="color:aliceblue; position: absolute; left: 40%;"> User Profile</h2>
+        </div>
+    </header>
+    <!-- /Header -->
+
+
+    <!-- Main Site -->
+    <main id="site-main">
+        <div class="containerMain">
+
+
+            <!-- form handling -->
+            <!-- <form action="/admin/listUsers" method="get">-->
+            <table id="table" class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>@Email</th>
+                        <th>isVerified</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% for(var i=0; i < users.length; i++) {%>
+
+                        <tr>
+                            <td>
+                                <%= i + 1 %>
+                            </td>
+                            <td>
+                                <%= users[i].name %>
+                            </td>
+                            <td>
+                                <%= users[i].email %>
+                            </td>
+                            <% if (users[i].isVerified) { %>
+                                <!-- Changing State-->
+                                <td><a data-id=<%=users[i]._id%>><button class="buttonON"> </button> </a> </a>
+                                </td>
+                                <%} else { %>
+
+                                    <td><a data-id=<%=users[i]._id%>><button class="buttonOFF"> </button> </a> </a>
+                                    </td>
+                                    <% } %>
+                                        <!-- Deleting User-->
+
+                                        <td>
+                                            <form
+                                                action="/admin/deleteUser?id=<%= users[i]._id%>&email=<%= user.email%>"
+                                                id='form<%=i%>' method="POST">
+
+                                                <a class="confirmation" href="javascript:;"
+                                                    onclick="areYouSure(`form<%=i%>`)">
+                                                    <span class="text-gradient"><i class="fas fa-times"></i></span>
+                                                </a>
+                                            </form>
+                                        </td>
+                        </tr>
+                        <% } %>
+                </tbody>
+            </table>
+            <!-- </form>-->
+        </div>
+    </main>
+    <!-- /Main Site -->
+
+    <!-- footer section-->
+    <div class="footer-dark">
+        <footer>
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-md-6 item text">
+                        <h3>Tunisian Chemical Group</h3>
+                        <p>Tunisia is the second country in the world to value a large percentage of its phosphate rock
+                            production (85%). GCT processes approximately 6.5 million tonnes of Tunisian rock phosphate
+                            each year to produce Merchant Phosphoric Acid (MGA).</p>
+                    </div>
+                    <div class="col item social"><a href="#"><i class="fab fa-facebook-f"></i></a><a href="#"><i
+                                class="fab fa-linkedin-in"></i>
+
+
+                        </a><a href="#"><i class="fab fa-instagram"></i></i></a></div>
+                </div>
+                <p class="copyright">Tunisian Chemical Group© 2022</p>
+            </div>
+        </footer>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
+        integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg=="
+        crossorigin="anonymous"></script>
+    <script>// If user stay inactive more than 3 minutes he will automatically logout
+        function detectIdelTimeFunc() {
+            let time;
+            let idelTimeLimit = 180000; // 1000=1 second
+            document.onmousemove = activityTimer;
+            document.onkeydown = activityTimer;
+
+            function detectInactivityFunc() {
+                alert('detected inactivity');
+                document.getElementById('logout').click();
+
+            }
+            function activityTimer() {
+                clearTimeout(time);
+                time = setTimeout(detectInactivityFunc, idelTimeLimit);
+                //output.innerHTML=`Activity  ${time} times `
+
+            }
+        };
+        detectIdelTimeFunc();
+        //  header configuration (download public private keys)
+        function downloadFile(filename, content) {
+            // It works on all HTML5 Ready browsers as it uses the download attribute of the <a> element:
+            const element = document.createElement('a');
+
+            //A blob is a data type that can store binary data
+            // "type" is a MIME type
+            // It can have a different value, based on a file you want to save
+            const blob = new Blob([content], { type: 'plain/text' });
+
+            //createObjectURL() static method creates a DOMString containing a URL representing the object given in the parameter.
+            const fileUrl = URL.createObjectURL(blob);
+
+            //setAttribute() Sets the value of an attribute on the specified element.
+            element.setAttribute('href', fileUrl); //file location
+            element.setAttribute('download', filename); // file name
+            element.style.display = 'none';
+
+            //use appendChild() method to move an element from one element to another
+            document.body.appendChild(element);
+            element.click();
+
+            //The removeChild() method of the Node interface removes a child node from the DOM and returns the removed node
+            document.body.removeChild(element);
+        };
+
+        window.onload = () => {
+            document.getElementById('downloadPublicKey').
+                addEventListener('click', e => {
+
+                    //The value of the file name input box
+                    const publicKey = "publicKey.txt";
+
+                    //The value of what has been input in the textarea
+                    const content1 = document.getElementById('publicKeyText').value;
+
+                    // The && (logical AND) operator indicates whether both operands are true. If both operands have nonzero values, the result has the value 1 . Otherwise, the result has the value 0.
+
+                    if (publicKey && content1) {
+                        downloadFile(publicKey, content1);
+                    }
+                });
+            document.getElementById('downloadPrivateKey').
+                addEventListener('click', e => {
+
+                    //The value of the file name input box
+                    const privateKey = "privateKey.txt";
+
+                    //The value of what has been input in the textarea
+                    const content2 = document.getElementById('privateKeyText').value;
+
+                    // The && (logical AND) operator indicates whether both operands are true. If both operands have nonzero values, the result has the value 1 . Otherwise, the result has the value 0.
+
+                    if (privateKey && content2) {
+                        downloadFile(privateKey, content2);
+                    }
+                });
+        };
+        // if user is added succeffully it is showing this alert
+        $("#add_user").submit(function (event) {
+            alert("Data Inserted Successfully!");
+        })
+        // if we want to update a user(name,pass) we can use this funcion
+        $(`#update_user`).submit(function (event) {
+            event.preventDefault();
+            var unindexed_array = $(this).serializeArray();
+            var data = {}
+
+            $.map(unindexed_array, function (n, i) {
+                data[n['name']] = n['value']
+            })
+
+
+            var request = {
+                "url": `<%=host%>/api/users/${data.id}`,
+                "method": "PUT",
+                "data": data
+            }
+
+            $.ajax(request).done(function (response) {
+
+                alert("Data Updated Successfully!");
+            })
+
+        });
+
+
+        // Confirmation DIalog for deleting user
+        function areYouSure(form) {
+            if (confirm("Did you really want to delete this User")) {
+                document.getElementById(form).submit();
+            }
+        }</script>
+    <script>
+        // Changing State Active or Inactive
+        if (window.location.pathname == "/admin/listUsers") {
+            $onupdate = $(".table tbody td a");
+            $onupdate.click(function () {
+                var id = $(this).attr("data-id")
+
+                var request = {
+                    "url": `<%= host %>/admin/updateState/${id}`,
+                    "method": "PUT",
+                    "data": id
+                }
+
+                $.ajax(request).done(function (response) {
+                    console.log('<%=user.email%>');
+                    alert("Data Updated Successfully!");
+                    console.log('<%user.email%>');
+                    window.location.href = "<%= host %>/admin/listUsers?valid=<%=user.email%>";
+                })
+
+            })
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"
+        integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="styleSheet" href="/css/userInfromation.css">
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+</head>
+
+<body>
+    < center>
+        <div class="container ">
+            <div class="card p-4">
+                <center>
+                    <div class=" image d-flex flex-column justify-content-center align-items-center"> <span
+                            class="name mt-3">
+                            <%=user.name%>
+                        </span>
+                        </br>
+                        Email Address <i class="fa fa-envelope" aria-hidden="true"></i>:
+                        <span class="idd">
+                            <%=user.email%>
+                        </span>
+                        </br>
+                        <span class="idd"><i class="fas fa-info-circle"></i> The image bellow showing how your signature
+                            will looks like when you sign pdf</span>
+                        <button class="btn btn-secondary">
+                            <img src="data:image/<%=myuser.img.contentType%>;base64,
+                        <%=myuser.img.data.toString('base64')%>" width="170px" height="150px"></button>
+                        <div class=" px-2 rounded mt-4 date "> <span class="join"> <b> Joined, <%=user.date%> </b>
+                            </span> </div>
+
+                </center>
+            </div>
+        </div>
+        </div>
+        </center>
+</body>
+
+</html>

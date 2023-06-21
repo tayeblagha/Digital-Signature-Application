@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Pdf Application</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+    integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+    crossorigin="anonymous" />
+  <link rel="stylesheet" href="/css/verifystyle.css">
+
+</head>
+
+<body>
+
+  <div class="login-box">
+
+    <h2 style="color:white">Crypto Verify <i class='fas fa-robot'></i> </h2>
+
+    <form id="sign-form" action="/digitalSignature/verifySignature" method="post" enctype="multipart/form-data">
+      <div class='fileTable'>
+        <div class='fileRow'>
+          <label for="file" class='fileCell' style='display:table-cell;color: white;'>PublicKey </label>
+          <span class='fileCell'></span>
+          <input type="file"  style='color: white;' name="key" id="key" class='fileCell'>
+        </div>
+      </div>
+      <div>
+        </br> </br>
+        <hr>
+        <div class="user-box">
+          <input type="hidden" name="publicKey" id='publicKey' value="" required="">
+        </div>
+        <div class="user-box">
+          <input type="hidden" name="email" id='email' value="<%= email %>" required="">
+        </div>
+
+        <div class="user-box">
+          <input type="hidden" name="token" id='token' value="<%= token %>" required="">
+        </div>
+        <div class="user-box">
+          <input type="hidden" name="signature" id='signature' value="" required="">
+        </div>
+    </form>
+
+    <div class='fileTable'>
+      <div class='fileRow'>
+        <label for="file" class='fileCell' style='display:table-cell;color: white;'>Signed_pdf </label>
+        <span class='fileCell'></span>
+        <input type="file"   style='color: white;' name="pdf" id="pdf" class='fileCell' accept="application/pdf">
+      </div>
+    </div>
+    <div>
+      </br> </br>
+      <hr>
+
+      <div style='display:table;table-layout:fixed'>
+        <div style='display:table-row'>
+          <label for="file" style='display:table-cell;color: white;'>Signature </label>
+          <span style='display:table-cell;width:140px;'></span>
+          <input type="file" style='color: white;' name="sig" id="sig" style='display:table-cell;'>
+        </div>
+      </div>
+      <div>
+        </br> </br>
+        <hr>
+        <a href="javascript:{}" onclick="document.getElementById('sign-form').submit();">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          Verify Signature <img src="/img/logistic.png" height="20" width="20">
+        </a>
+
+        <p>
+          <% if(typeof result=='undefined' ){ %>
+            <h1>result:</h1>
+
+            <% } else if (result=="true" || result==true) { %>
+              <h1>Signature is valid </h1>
+              <% } else { %>
+                <h1>Wrong Signature</h1>
+                <% } %>
+        </p>
+      </div>
+</body>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+  integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script>
+  var selDiv = "";
+  var storedFiles = [];
+  $(document).ready(function () {
+    $("#sig").on("change", handleFileSelect);
+    selDiv = $("#selectedBanner");
+  });
+  $(document).ready(function () {
+    $("#key").on("change", handleFileChnage);
+    selDiv = $("#selectedBanner");
+  });
+
+
+  function handleFileSelect(e) {
+    var files = e.target.files;
+    var filesArr = Array.prototype.slice.call(files);
+    filesArr.forEach(function (f) {
+
+      storedFiles.push(f);
+
+      var reader = new FileReader();
+      reader.onload = function (e) {
+        const x = e.target.result;
+        const y = x.slice(23);
+        const string = atob(y);
+        document.getElementById("signature").value = string;
+
+      };
+      reader.readAsDataURL(f);
+    });
+  }
+
+  function handleFileChnage(e) {
+    var files = e.target.files;
+    var filesArr = Array.prototype.slice.call(files);
+    filesArr.forEach(function (f) {
+
+      storedFiles.push(f);
+
+      var reader = new FileReader();
+      reader.onload = function (e) {
+        const x = e.target.result;
+        const y = x.slice(23);
+        const string = atob(y);
+        document.getElementById("publicKey").value = string;
+
+      };
+      reader.readAsDataURL(f);
+    });
+  }
+
+  document.getElementById('upload').addEventListener('click', function () {
+    document.querySelector('.bg-modal').style.display = 'flex';
+  });
+
+</script>
+
+</html>

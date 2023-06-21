@@ -1,0 +1,47 @@
+@import url(https://fonts.googleapis.com/css?family=Droid+Sans+Mono);
+#edit-with-js-bin {
+  display: none !important;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background: #262626;
+  font-family: 'Droid Sans Mono', sans-serif;
+}
+
+h1 {
+  font-size: 3em;
+}
+
+h6 {
+  font-size: .9em;
+}
+
+.london {
+  background: url(https://www.architectsjournal.co.uk/pictures/2000x2000fit/9/4/2/1369942_London_Skyline.jpg) no-repeat;
+  background-size: cover;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  display: none;
+}
+
+.container {
+  width: 100%;
+  margin: auto;
+  padding: 10px 30px;
+}
+
+.header {
+  position: relative;
+  width: 100%;
+  text-align: left;
+  color: #F2F1EF;
+  text-shadow: 0 2px 2px rgba(0, 0, 0, 0.4);
+  display: block;
+}
+

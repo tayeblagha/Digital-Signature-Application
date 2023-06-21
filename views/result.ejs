@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/resultstyle.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+</head>
+<body>
+  
+    <div class="publicKeycontainer">
+        <div class="label">
+          <label  class="crypto">    Encoded Pdf   </label>
+
+     </div>
+        <div class="copy-text">
+          <input type="text" class="text" value="<%=encodedPdf%>" readonly>
+          <button>
+            <i class="fa fa-clone"></i>
+          </button>
+        </div>
+      </div>
+      
+
+      <div class="privateKeycontainer">
+        <div class="label">
+   <label  class="crypto"> Signature: </label>
+     </div>
+        <div class="copy-text">
+          <input type="text" class="text" value="<%=signature%>" readonly>
+          <button>
+            <i class="fa fa-clone"></i>
+          </button>
+        </div>
+      </div>
+
+      <div >
+        <a target="_blank" href="/verify" > Verify Signature <img src='/css/search.png'  width="20"  height="20"></a>
+      </div>
+
+      
+    <script src="/js/index.js"></script>
+
+
+</body>
+</html>

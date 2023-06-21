@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<link rel="styleSheet" href="/css/uploadStyle.css">
+	</rel>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+		integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+		crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+
+<body>
+	<script>
+		var sign = "hello";
+		function upload(fakepath) {
+			var split = fakepath.split('fakepath\\');
+			var p = document.getElementById("test");
+			p.innerHTML = `<u> ${split[1]} </u>` + ' Added Succefully.<i class="fas fa-check"></i> <form method="post" action="/digitalSignature/signingForm">  ' + ` <input type='hidden' name='pdf' value='${split[1]}'>  <br/><br/>  <input type="submit" value="Add Date and Signature">   </form> `
+		}
+
+
+	</script>
+	<form action="/digitalSignature/signed-pdf" method="POST" id="sign-form">
+		<center>
+			<h2><label> Your Signature, Has been Added succeffully to: </label> </h2>
+			<section class="london">
+				<div class="container">
+					<h6 class="cipher header">
+						<%=output %>
+					</h6>
+				</div>
+			</section>
+		</center>
+
+		<input type="hidden" value="<%=output %>" name="uploadFile">
+
+		<h2>
+			<label>Reenter your Private Key <i class="fa fa-key" aria-hidden="true"></i>
+			</label>
+		</h2>
+
+		<div class="user-box">
+			<center> <textarea id="message" type="text" name="privateKey" value="" required=""> </textarea></center>
+
+		</div>
+
+		<a href="javascript:{}" onclick="document.getElementById('sign-form').submit();">
+			<span></span>
+			<span></span>
+			<span></span>
+			<span></span>
+			Sign PDF <img src="/img/sig.jpg" height="25" width="25">
+		</a>
+	</form>
+
+	<p id="test"> </p>
+
+
+
+
+</body>
+
+<script>(function ($) { // Begin jQuery extension
+
+		var timer;
+
+		Number.prototype.range = function (min, max) {
+			return this > min && this < max;
+		};
+
+		var rd = function randomAlphaNum() {
+			var rand = Math.floor(Math.random() * (122 - 33 + 1) + 33);
+
+			// Filter out char codes that are not required
+			if (rand.range(38, 48)) rand = rand + 10;
+			else if (rand.range(57, 63)) rand = rand + 10;
+			else if (rand.range(90, 97)) rand = rand + 10;
+
+			return String.fromCharCode(rand);
+		};
+
+		$.fn.cipherStart = function (begin) {
+			this.each(function () {
+
+				var $ele = $(this),
+					str = $ele.text(),
+					i = 0,
+					replace = /[^\s]/g;
+
+				$ele.text(''); // Clears the text
+
+				timer = setInterval(function () {
+					$ele.text(
+						str.substring(0, i) + // Returns a subset of the initial string, on the first call 0 0 returns nothing, next is 0 1 etc
+						str.substring(i, str.length) // Returns a subset of progress to the full length of the string
+
+							.replace(replace, rd) // replace all characters with a random char code
+					);
+
+					if (begin) { // Reveal text
+						i++;
+
+						if (i > str.length)
+							clearInterval(timer);
+					}
+
+				}, 110); // Timing  
+			});
+			return this;
+		};
+
+		$.fn.cipherStop = function () {
+			clearInterval(timer);
+
+			return this;
+		};
+
+
+		$.fn.cipherCenter = function () {
+			this.css('position', 'absolute');
+			this.css('top', Math.max(0, (($(window).height() - $(this).outerHeight()) / 2.3) + $(window).scrollTop()) + 'px');
+			this.css('left', Math.max(0, (($(window).width() - $(this).outerWidth()) / 2) + $(window).scrollLeft()) + 'px');
+
+			return this;
+		}
+
+
+	})(jQuery); // End jQuery Extension
+
+
+	$('document').ready(function () {
+
+		// Hide header
+		$('.header').hide();
+		// Transition background
+		$('.london').ready(function () {
+			$('.london').fadeIn(1200);
+
+			// Timeout for crypto text
+			setTimeout(function () {
+				$('.header').fadeIn('slow');
+				$('.cipher').cipherStart(true);
+			}, 1400);
+
+
+		});
+
+	});
+
+</script>
+
+</html>

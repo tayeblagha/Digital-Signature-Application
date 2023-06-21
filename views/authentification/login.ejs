@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<!-- Created By CodingNepal -->
+<html lang="en" dir="ltr">
+   <head>
+      <meta charset="utf-8">
+      <title>Password Strength Checker JavaScript| CodingNepal</title>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+      integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+      crossorigin="anonymous" />
+      <link rel="stylesheet" href="style.css">
+      <link rel="stylesheet" href="/css/login.css">
+
+   </head>
+   <body>
+      <div class="container">
+       <a href="/"> <i class="fas fa-home" style="position: absolute;top: 0px;right:90%; font-size: 2em;"></i> </a>
+         <header>Login </header>
+         <form method="post" id="sign-form">
+            <div class="field">
+                <input  type="text" name="email"  placeholder="Enter your email">
+             </div>
+            </br>
+           
+            <div class="field">
+               <input onkeyup="trigger()"  name="password" type="password" id="myPsw1" placeholder="Enter your password">
+               <span class="showBtn"> <i class="fa fa-eye" aria-hidden="true"></i>
+               </span>
+               
+            </div>
+            <p>
+              <% if(typeof result=='undefined' ){ %>
+      
+                <% } else if (result=="false" || result==false) { %>
+                  <span id = "message" style="color:red">*Wrong Username or Password</span>   
+                  <% } else {} %>
+            </p>
+        </br>
+        <a href="javascript:{}"  class="btn mt-4"  id="myButton" onclick="document.getElementById('sign-form').submit();">Connect
+        </a>
+    </br>            </br>        
+
+        <h5> Dont have account? Resgiter Here <a href="/auth/register"   > <i style="font-size: 1.4em;" class="fa fa-user-plus" aria-hidden="true"></i>
+        </a></h5>  
+         </form>
+      </div>
+     
+
+      <% if(typeof info=='undefined' ){ %>
+      
+        <% } else  { %>
+<script>   alert('User Created with sucess you need to wait for admin permission')</script>
+          <% }  %>
+   </body>
+
+   <script>
+    const input = document.getElementById("myPsw1");
+    
+    const showBtn = document.querySelector(".showBtn");
+
+    
+   
+    function trigger(){
+      if(input.value != ""){
+        
+        showBtn.style.display = "block";
+        showBtn.onclick = function(){
+          if(input.type == "password"){
+            input.type = "text";
+            showBtn.innerHTML="<i class='fa fa-eye-slash' aria-hidden='true'></i>"
+            showBtn.style.color = "#23ad5c";
+          }else{
+            input.type = "password";
+            showBtn.innerHTML = "<i class='fa fa-eye' aria-hidden='true'></i>";
+            showBtn.style.color = "#000";
+          }
+        }
+      }else{
+        
+        showBtn.style.display = "none";
+      }
+    }
+    document.getElementById("myPsw1")
+    .addEventListener("keyup", function(event) {
+    event.preventDefault();
+    if (event.keyCode === 13) {
+        document.getElementById("myButton").click();
+    }
+});
+    
+      
+    
+
+   
+ </script>
+</html>
+
+    
+ 

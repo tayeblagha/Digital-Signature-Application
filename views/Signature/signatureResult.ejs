@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="/css/KeyPairStyle.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+    integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"
+    integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+
+  <center>
+    <h1 style="color: white; ;"> <i class="fa-light fa-alien-8bit"></i> Congratulation you successfully signed your pdf
+      <i class="fa fa-check" aria-hidden="true"></i>
+    </h1>
+  </center>
+
+  <div class="publicKeycontainer">
+    <div class="label">
+      <label class="crypto"> Pdf : </label>
+
+    </div>
+    <div class="copy-text">
+      <input type="text" class="text" value="<%=encodedPdf%>" name='encodedPdf' readonly>
+      <button>
+        <i class="fa fa-download" aria-hidden="true" id="pdf"></i>
+      </button>
+    </div>
+  </div>
+
+
+  <div class="privateKeycontainer">
+    <div class="label">
+      <label class="crypto"> Signature: </label>
+    </div>
+    <div class="copy-text">
+      <input type="text" class="text" value="<%=signature%>" name='signature' readonly>
+      <button>
+        <i class="fa fa-download" aria-hidden="true" id="sig"></i> </button>
+    </div>
+  </div>
+
+  <div>
+    <a target="_blank" href="/digitalSignature/verifySignature?token=<%=token%>&email=<%=email%>"> Verify PDF <i
+        class="fa-solid fa-signature"></i></a>
+  </div>
+
+  <script>  function downloadPDF(pdf) {
+      const linkSource = `data:application/pdf;base64,${pdf}`;
+      const downloadLink = document.createElement("a");
+      const fileName = "signedPdf.pdf";
+      downloadLink.href = linkSource;
+      downloadLink.download = fileName;
+      downloadLink.click();
+    }
+
+    document.getElementById('pdf').addEventListener("click", function () {
+      downloadPDF('<%=encodedPdf%>')
+    })
+
+
+
+    function downloadText(filename, text) {
+      var element = document.createElement('a');
+      element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+      element.setAttribute('download', filename);
+
+      element.style.display = 'none';
+      document.body.appendChild(element);
+
+      element.click();
+
+      document.body.removeChild(element);
+    }
+    document.getElementById('sig').addEventListener("click", function () {
+      downloadText('Signature', '<%=signature%>')
+    })
+
+  </script>
+</body>
+
+</html>

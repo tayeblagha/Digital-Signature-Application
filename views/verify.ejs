@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Pdf Application</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="/css/verifystyle.css">
+</head>
+<body>
+    
+    <div class="login-box">
+        <h2>Verify  </h2>
+        <form id="sign-form" action="/verify" method="post">
+          <textarea name="encodedPdf" required="" class="message" > </textarea>
+          <div class="user-box">
+            <input type="text" name="publicKey" required="">
+            <label>Public key </label>
+          </div>
+          <div class="user-box">
+            <input type="text" name="signature" required="">
+            <label>Signature</label>
+          </div>
+          <a  href="javascript:{}" onclick="document.getElementById('sign-form').submit();">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            Verify Signature <img src="/css/logistic.png"  height="20" width="20"> 
+          </a>
+          <p >  <% if(typeof result == 'undefined'){ %>
+            <h1>result:</h1>
+
+            <% } else if (result=="true" || result==true) { %>
+              <h1>Signature is valid </h1>
+           <% } else { %>
+             <h1>Wrong Signature</h1>
+           <% } %> 
+        </form>
+      </div>
+</body>
+</html>

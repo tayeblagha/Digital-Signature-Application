@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pdf Historic</title>
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+        integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+        crossorigin="anonymous" />
+    <link rel="stylesheet" href="/css/LisrUserstyle.css">
+
+
+</head>
+
+<body>
+
+    <!-- Header -->
+
+    <!-- /Header -->
+
+
+    <!-- Main Site -->
+    <main id="site-main">
+        <div class="containerMain">
+            <div class="box-nav d-flex justify-between">
+                <span class="text-gradient">Pdf Historic<i class="fas fa-history"></i>
+                </span>
+            </div>
+
+            <!-- form handling -->
+            <!-- <form action="/admin/listUsers" method="get">-->
+            <table id="table" class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Token</th>
+                        <th>Date</th>
+                        <th> Pdf</th>
+                        <th> Signature</th>
+
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <% for(var i=0; i < pdfusers.length; i++) {%>
+
+                        <tr>
+                            <td>
+                                <%= i + 1 %>
+                            </td>
+                            <td>
+                                <input type="text" value=" <%= pdfusers[i].Token %>" id="inputToken<%= i + 1 %>">
+
+                                <button onclick="token('inputToken<%= i + 1 %>')"> <i class="fas fa-copy"></i> </button>
+                                <script> function token(id) {
+                                        /* Get the text field */
+                                        var copyText = document.getElementById(id);
+
+                                        /* Select the text field */
+                                        copyText.select();
+                                        copyText.setSelectionRange(0, 99999); /* For mobile devices */
+
+                                        /* Copy the text inside the text field */
+                                        navigator.clipboard.writeText(copyText.value);
+
+                                        /* Alert the copied text */
+                                    }</script>
+
+                            </td>
+
+                            <td>
+                                 <%= pdfusers[i].date %>
+<!--
+                                <button onclick="myFunction('input<%= i + 1 %>')"> <i class="fas fa-copy"></i> </button>
+                                <script> function myFunction(id) {
+                                        /* Get the text field */
+                                        var copyText = document.getElementById(id);
+
+                                        /* Select the text field */
+                                        copyText.select();
+                                        copyText.setSelectionRange(0, 99999); /* For mobile devices */
+
+                                        /* Copy the text inside the text field */
+                                        navigator.clipboard.writeText(copyText.value);
+
+                                        /* Alert the copied text */
+                                    }</script>
+-->
+                            </td>
+                            <td>
+                                <button> <i class="fa fa-download" aria-hidden="true" id="pdf<%= i + 1 %>"></i>
+                                </button>
+
+                                <script>  function downloadPDF(pdf) {
+                                        const linkSource = `data:application/pdf;base64,${pdf}`;
+                                        const downloadLink = document.createElement("a");
+                                        const fileName = "signedPdf.pdf";
+                                        downloadLink.href = linkSource;
+                                        downloadLink.download = fileName;
+                                        downloadLink.click();
+                                    }
+
+                                    document.getElementById('pdf<%= i + 1 %>').addEventListener("click", function () {
+                                        downloadPDF('<%=pdfusers[i].base64  %>')
+                                    })
+
+                                </script>
+                            </td>
+
+
+
+                            <td>
+                                <button> <i class="fa fa-download" aria-hidden="true" id="sig<%= i + 1 %>" ></i>
+                                </button>
+                            <script>
+                                    function downloadText(filename, text) {
+                                var element = document.createElement('a');
+                                element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+                                element.setAttribute('download', filename);
+                          
+                                element.style.display = 'none';
+                                document.body.appendChild(element);
+                          
+                                element.click();
+                          
+                                document.body.removeChild(element);
+                              }
+                              document.getElementById('sig<%= i + 1 %>').addEventListener("click", function () {
+                                downloadText('Signature', '<%=pdfusers[i].signature %>')
+                              })
+
+                                </script>
+                            </td>
+                            
+
+                        </tr>
+                        <% } %>
+                </tbody>
+            </table>
+            <!-- </form>-->
+        </div>
+    </main>
+    <!-- /Main Site -->
+
+
+
+
+
+    <!-- footer section-->
+    <div class="footer-dark">
+        <footer>
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-md-6 item text">
+                        <h3>Tunisian Chemical Group</h3>
+                        <p>Tunisia is the second country in the world to value a large percentage of its phosphate rock
+                            production (85%). GCT processes approximately 6.5 million tonnes of Tunisian rock phosphate
+                            each year to produce Merchant Phosphoric Acid (MGA).</p>
+                    </div>
+                    <div class="col item social"><a href="#"><i class="fab fa-facebook-f"></i></a><a href="#"><i
+                                class="fab fa-linkedin-in"></i>
+
+
+                        </a><a href="#"><i class="fab fa-instagram"></i></i></a></div>
+                </div>
+                <p class="copyright">Tunisian Chemical Group© 2022</p>
+            </div>
+        </footer>
+    </div>
+
+
+
+</body>
+
+</html>

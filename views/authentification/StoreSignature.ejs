@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<!-- Created By CodingNepal -->
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>Password Strength Checker JavaScript| CodingNepal</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+    integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+    crossorigin="anonymous" />
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="/css/storeSignature.css">
+
+</head>
+
+<body>
+
+  <div class="container">
+
+    <header>
+      <h2> <b> Upload Your Signature Please </b> </h2>
+    </header>
+    <form action="/storeSignature" method="POST" enctype="multipart/form-data">
+
+      <div>
+        <input type="hidden" placeholder="Name" value="<%= user.name %>" name="name" required>
+        <input type="hidden" placeholder="Name" value="<%= user.email %>" name="email" required>
+        <input type="hidden" placeholder="Name" value="<%= user.password %>" name="password" required>
+        <input type="hidden" placeholder="Name" value="<%=user.emailToken%> " name="emailToken" required>
+
+      </div>
+
+      <div>
+        <label for="image">Upload Image: &nbsp</label>
+        <input type="file" id="image" name="image" value="" required>
+      </div>
+      </br>
+      <div>
+        <center><button type="submit">continue Registration</button> </center>
+      </div>
+
+      </br>
+      <h4><i class="fa fa-info-circle" aria-hidden="true"></i> you can draw your signature if you don't have one
+        <a href='/digitalSignature/drawSig' target="_blank"> click here </a>
+      </h4>
+
+      <h6>your registration will not be proved if you dont complete this step <i class="fa fa-exclamation-triangle"
+          aria-hidden="true"></i>
+
+      </h6>
+    </form>
+  </div>
+
+</body>
+
+<script>
+  const input = document.getElementById("myPsw1");
+
+  const showBtn = document.querySelector(".showBtn");
+
+
+
+  function trigger() {
+    if (input.value != "") {
+
+      showBtn.style.display = "block";
+      showBtn.onclick = function () {
+        if (input.type == "password") {
+          input.type = "text";
+          showBtn.innerHTML = "<i class='fa fa-eye-slash' aria-hidden='true'></i>"
+          showBtn.style.color = "#23ad5c";
+        } else {
+          input.type = "password";
+          showBtn.innerHTML = "<i class='fa fa-eye' aria-hidden='true'></i>";
+          showBtn.style.color = "#000";
+        }
+      }
+    } else {
+
+      showBtn.style.display = "none";
+    }
+  }
+  document.getElementById("myPsw1")
+    .addEventListener("keyup", function (event) {
+      event.preventDefault();
+      if (event.keyCode === 13) {
+        document.getElementById("myButton").click();
+      }
+    });
+
+</script>
+
+</html>
